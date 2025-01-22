@@ -18,12 +18,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
+		console.log("Setting up onAuthStateChanged listener")
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			console.log("Auth state updated:", user)
 			setUser(user)
 			setLoading(false)
 		})
 
-		return () => unsubscribe()
+		return () => {
+			console.log("Cleaning up onAuthStateChanged listener")
+			unsubscribe()
+		}
 	}, [])
 
 	return <AuthContext.Provider value={{ user, loading }}>{children}</AuthContext.Provider>
