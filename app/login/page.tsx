@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/app/context/AuthContex"
 
@@ -7,7 +7,7 @@ const Login: React.FC = () => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const router = useRouter()
-	const { login } = useAuth()
+	const { login, token, loading } = useAuth()
 
 	const handleLogin = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -19,6 +19,15 @@ const Login: React.FC = () => {
 			console.error("Login failed:", error)
 		}
 	}
+
+	useEffect(() => {
+		if (token) {
+			console.log("Token exists, redirecting to dashboard...")
+			router.push("/dashboard")
+		}
+	}, [token, router])
+
+	if (loading) return <div>Loading...</div>
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50">

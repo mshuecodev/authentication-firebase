@@ -1,6 +1,6 @@
 "use client"
 import React, { createContext, useContext, useState, useEffect } from "react"
-import { User, onIdTokenChanged, getIdToken, signInWithEmailAndPassword } from "firebase/auth"
+import { User, onIdTokenChanged, getIdToken, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { auth } from "@/app/firebase/clientApp"
 
 interface AuthContextProps {
@@ -8,13 +8,15 @@ interface AuthContextProps {
 	loading: boolean
 	token: string | null
 	login: (email: string, password: string) => Promise<void>
+	handleLogout: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextProps>({
 	user: null,
 	loading: true,
 	token: null,
-	login: async () => {}
+	login: async () => {},
+	handleLogout: async () => {}
 })
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -24,21 +26,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 	const login = async (email: string, password: string) => {
 		const userCredential = await signInWithEmailAndPassword(auth, email, password)
-		console.log("User logged in:", userCredential.user)
+
 		const token = await getIdToken(userCredential.user)
 		setUser(userCredential.user)
 		setToken(token)
 	}
 
+	const handleLogout = async () => {
+		await signOut(auth)
+		setUser(null)
+		setToken(null)
+	}
+
 	useEffect(() => {
-		console.log("Setting up onIdTokenChanged listener")
 		const unsubscribe = onIdTokenChanged(auth, async (user) => {
-			console.log("Auth state updated:", user)
 			setUser(user)
 			setLoading(false)
 			if (user) {
 				const token = await getIdToken(user)
-				console.log("Token retrieved:", token)
+
 				setToken(token)
 			} else {
 				setToken(null)
@@ -46,12 +52,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 		})
 
 		return () => {
-			console.log("Cleaning up onAuthStateChanged listener")
 			unsubscribe()
 		}
 	}, [])
 
-	return <AuthContext.Provider value={{ user, loading, token, login }}>{children}</AuthContext.Provider>
+	return <AuthContext.Provider value={{ user, loading, token, login, handleLogout }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => useContext(AuthContext)
