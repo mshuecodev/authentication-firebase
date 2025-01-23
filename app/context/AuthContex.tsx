@@ -1,6 +1,6 @@
 "use client"
 import React, { createContext, useContext, useState, useEffect } from "react"
-import { User, onIdTokenChanged, getIdToken, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { User, onIdTokenChanged, getIdToken, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth"
 import { auth } from "@/app/firebase/clientApp"
 
 interface AuthContextProps {
@@ -9,6 +9,7 @@ interface AuthContextProps {
 	token: string | null
 	login: (email: string, password: string) => Promise<void>
 	handleLogout: () => Promise<void>
+	handleRegister: (email: string, password: string) => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextProps>({
@@ -16,7 +17,8 @@ const AuthContext = createContext<AuthContextProps>({
 	loading: true,
 	token: null,
 	login: async () => {},
-	handleLogout: async () => {}
+	handleLogout: async () => {},
+	handleRegister: async () => {}
 })
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -27,6 +29,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 	const login = async (email: string, password: string) => {
 		const userCredential = await signInWithEmailAndPassword(auth, email, password)
 
+		const token = await getIdToken(userCredential.user)
+		setUser(userCredential.user)
+		setToken(token)
+	}
+
+	const handleRegister = async (email: string, password: string) => {
+		const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+		console.log("User registered:", userCredential.user)
 		const token = await getIdToken(userCredential.user)
 		setUser(userCredential.user)
 		setToken(token)
@@ -56,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 		}
 	}, [])
 
-	return <AuthContext.Provider value={{ user, loading, token, login, handleLogout }}>{children}</AuthContext.Provider>
+	return <AuthContext.Provider value={{ user, loading, token, login, handleRegister, handleLogout }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => useContext(AuthContext)

@@ -1,24 +1,22 @@
 "use client"
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useAuth } from "@/app/context/AuthContex"
 
 const Register: React.FC = () => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const router = useRouter()
+	const { handleRegister } = useAuth()
 
-	const handleRegister = async (e: React.FormEvent) => {
+	const handleRegisterSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		const res = await fetch("/api/auth/register", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ email, password })
-		})
-
-		if (res.ok) {
+		try {
+			await handleRegister(email, password)
+			console.log("Registration successful, pushing to dashboard...")
 			router.push("/dashboard")
-		} else {
-			console.error(await res.json())
+		} catch (error) {
+			console.error("Registration failed:", error)
 		}
 	}
 
@@ -27,7 +25,7 @@ const Register: React.FC = () => {
 			<div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
 				<h1 className="text-2xl font-semibold text-gray-900 mb-6">Register</h1>
 				<form
-					onSubmit={handleRegister}
+					onSubmit={handleRegisterSubmit}
 					className="space-y-6"
 				>
 					<div>
