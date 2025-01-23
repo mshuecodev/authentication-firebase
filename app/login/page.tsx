@@ -1,27 +1,20 @@
 "use client"
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useAuth } from "@/app/context/AuthContex"
 
 const Login: React.FC = () => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const router = useRouter()
+	const { login } = useAuth()
 
 	const handleLogin = async (e: React.FormEvent) => {
 		e.preventDefault()
 		try {
-			const res = await fetch("/api/auth/login", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ email, password })
-			})
-
-			if (res.ok) {
-				console.log("Login successful, pushing to dashboard...")
-				router.push("/dashboard")
-			} else {
-				console.error("Login failed:", await res.json())
-			}
+			await login(email, password)
+			console.log("Login successful, pushing to dashboard...")
+			router.push("/dashboard")
 		} catch (error) {
 			console.error("Login failed:", error)
 		}

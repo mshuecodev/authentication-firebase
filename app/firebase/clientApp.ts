@@ -1,6 +1,6 @@
 // Import the required Firebase modules
 import { initializeApp, getApps, getApp } from "firebase/app"
-import { getAuth } from "firebase/auth"
+import { getAuth, setPersistence, browserSessionPersistence } from "firebase/auth"
 
 // Your Firebase configuration object
 const firebaseConfig = {
@@ -14,6 +14,9 @@ const firebaseConfig = {
 }
 
 // Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
-export const auth = getAuth(app)
-export default app
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
+
+setPersistence(auth, browserSessionPersistence)
+
+export { auth }

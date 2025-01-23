@@ -8,7 +8,7 @@ export async function POST(req: Request) {
 	try {
 		const userCredential = await signInWithEmailAndPassword(auth, email, password)
 		return NextResponse.json({ user: userCredential.user })
-	} catch (error) {
+	} catch (error: any) {
 		return NextResponse.json({ error: error.message }, { status: 400 })
 	}
 }

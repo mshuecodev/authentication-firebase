@@ -4,14 +4,15 @@ import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 const Dashboard: React.FC = () => {
-	const { user, loading } = useAuth()
+	const { user, loading, token } = useAuth()
 	const router = useRouter()
 
 	useEffect(() => {
-		if (!loading && !user) {
+		console.log("Dashboard", user, loading, token)
+		if (!loading && !token) {
 			router.push("/login")
 		}
-	}, [user, loading, router])
+	}, [token, loading, router])
 
 	if (loading) return <div>Loading...</div>
 
