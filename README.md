@@ -18,21 +18,21 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 # ESSENTIAL FEATURES
 
-## REGISTER (OK)
+## REGISTER (✅ Completed)
 
 -   Email and Password Registration: Allow users to sign up using their email and password.
 -   Social Authentication: Enable login via platforms like Google, Facebook, or GitHub.
 
-## LOGIN (OK)
+## LOGIN (✅ Completed)
 
 -   Email and Password Login: Basic login using registered credentials.
 -   Social Login: Allow login via social platforms (Google, Facebook, GitHub, etc.). -Persistent Login: Remember the user's session even after the browser is closed.
 
-## LOGOUT (OK)
+## LOGOUT (✅ Completed)
 
 -   Provide a way for users to log out securely and clear their session.
 
-## AUTH STATE MANAGEMENT (OK)
+## AUTH STATE MANAGEMENT (✅ Completed)
 
 -   Automatically detect when a user logs in or out and update the UI dynamically.
 
@@ -44,7 +44,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 -   Send a verification email after registration to ensure the email address is valid.
 
-## PROTECTED ROUTES (OK)
+## PROTECTED ROUTES (✅ Completed)
 
 -   Secure specific pages by allowing only authenticated users to access them.
 
