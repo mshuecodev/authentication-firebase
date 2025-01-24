@@ -22,6 +22,38 @@ const Dashboard: React.FC = () => {
 				{user ? (
 					<>
 						<p className="text-gray-700 mb-4">Welcome, {user.email}</p>
+						<div className="text-gray-700 mb-4">
+							<p>
+								<strong>Display Name:</strong> {user.displayName || "N/A"}
+							</p>
+							<p>
+								<strong>Email:</strong> {user.email}
+							</p>
+							<p>
+								<strong>Photo URL:</strong>{" "}
+								{user.photoURL ? (
+									<img
+										src={user.photoURL}
+										alt="User Photo"
+										className="w-16 h-16 rounded-full"
+									/>
+								) : (
+									"N/A"
+								)}
+							</p>
+							<p>
+								<strong>UID:</strong> {user.uid}
+							</p>
+							<p>
+								<strong>Email Verified:</strong> {user.emailVerified ? "Yes" : "No"}
+							</p>
+							<p>
+								<strong>Phone Number:</strong> {user.phoneNumber || "N/A"}
+							</p>
+							<p>
+								<strong>Provider ID:</strong> {user.providerId}
+							</p>
+						</div>
 						<button
 							onClick={handleLogout}
 							className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
