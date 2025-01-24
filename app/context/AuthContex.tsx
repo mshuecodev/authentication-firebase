@@ -48,6 +48,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 		setToken(null)
 	}
 
+	// refresh token function
+	const checkTokenExpiration = async () => {
+		if (user) {
+			const token = await getIdToken(user, true) // Force refresh the token
+			setToken(token)
+		}
+	}
+
 	useEffect(() => {
 		const unsubscribe = onIdTokenChanged(auth, async (user) => {
 			setUser(user)
@@ -65,6 +73,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 			unsubscribe()
 		}
 	}, [])
+
+	// check expired token every 15 minutes
+	useEffect(() => {
+		const interval = setInterval(checkTokenExpiration, 15 * 60 * 1000) // Check every 15 minutes
+		return () => clearInterval(interval)
+	}, [user])
 
 	return <AuthContext.Provider value={{ user, loading, token, login, handleRegister, handleLogout }}>{children}</AuthContext.Provider>
 }
