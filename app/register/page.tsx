@@ -76,6 +76,14 @@ const Register: React.FC = () => {
 						Register
 					</button>
 				</form>
+				<div className="mt-6">
+					<button
+						onClick={() => router.push("/login")}
+						className="w-full bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+					>
+						Login
+					</button>
+				</div>
 			</div>
 		</div>
 	)

@@ -95,6 +95,14 @@ const Login: React.FC = () => {
 						Login with Google
 					</button>
 				</div>
+				<div className="mt-6">
+					<button
+						onClick={() => router.push("/register")}
+						className="w-full bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+					>
+						Register
+					</button>
+				</div>
 			</div>
 		</div>
 	)
