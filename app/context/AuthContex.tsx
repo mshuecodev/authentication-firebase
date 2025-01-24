@@ -1,7 +1,7 @@
 "use client"
 import React, { createContext, useContext, useState, useEffect } from "react"
-import { User, onIdTokenChanged, getIdToken, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth"
-import { auth } from "@/app/firebase/clientApp"
+import { User, onIdTokenChanged, getIdToken, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, signInWithPopup } from "firebase/auth"
+import { auth, googleProvider } from "@/app/firebase/clientApp"
 
 interface AuthContextProps {
 	user: User | null
@@ -10,6 +10,7 @@ interface AuthContextProps {
 	login: (email: string, password: string) => Promise<void>
 	handleLogout: () => Promise<void>
 	handleRegister: (email: string, password: string) => Promise<void>
+	loginWithGoogle: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextProps>({
@@ -18,13 +19,22 @@ const AuthContext = createContext<AuthContextProps>({
 	token: null,
 	login: async () => {},
 	handleLogout: async () => {},
-	handleRegister: async () => {}
+	handleRegister: async () => {},
+	loginWithGoogle: async () => {}
 })
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const [user, setUser] = useState<User | null>(null)
 	const [loading, setLoading] = useState(true)
 	const [token, setToken] = useState<string | null>(null)
+
+	const loginWithGoogle = async () => {
+		const userCredential = await signInWithPopup(auth, googleProvider)
+		console.log("User logged in with Google:", userCredential.user)
+		const token = await getIdToken(userCredential.user)
+		setUser(userCredential.user)
+		setToken(token)
+	}
 
 	const login = async (email: string, password: string) => {
 		const userCredential = await signInWithEmailAndPassword(auth, email, password)
@@ -92,7 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 		return () => clearInterval(interval)
 	}, [user])
 
-	return <AuthContext.Provider value={{ user, loading, token, login, handleRegister, handleLogout }}>{children}</AuthContext.Provider>
+	return <AuthContext.Provider value={{ user, loading, token, login, handleRegister, handleLogout, loginWithGoogle }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => useContext(AuthContext)

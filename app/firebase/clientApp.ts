@@ -1,6 +1,6 @@
 // Import the required Firebase modules
 import { initializeApp, getApps, getApp } from "firebase/app"
-import { getAuth, setPersistence, browserSessionPersistence } from "firebase/auth"
+import { getAuth, setPersistence, browserSessionPersistence, browserLocalPersistence, GoogleAuthProvider } from "firebase/auth"
 
 // Your Firebase configuration object
 const firebaseConfig = {
@@ -17,6 +17,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 
-setPersistence(auth, browserSessionPersistence)
+setPersistence(auth, browserSessionPersistence).catch((error) => {
+	console.error("Error setting persistence:", error)
+})
 
-export { auth }
+const googleProvider = new GoogleAuthProvider()
+
+export { auth, googleProvider }

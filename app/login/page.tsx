@@ -7,7 +7,7 @@ const Login: React.FC = () => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const router = useRouter()
-	const { login, token, loading } = useAuth()
+	const { login, token, loading, loginWithGoogle } = useAuth()
 
 	const handleLogin = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -17,6 +17,16 @@ const Login: React.FC = () => {
 			router.push("/dashboard")
 		} catch (error) {
 			console.error("Login failed:", error)
+		}
+	}
+
+	const handleGoogleLogin = async () => {
+		try {
+			await loginWithGoogle()
+			console.log("Google login successful, pushing to dashboard...")
+			router.push("/dashboard")
+		} catch (error) {
+			console.error("Google login failed:", error)
 		}
 	}
 
@@ -76,6 +86,15 @@ const Login: React.FC = () => {
 						Login
 					</button>
 				</form>
+
+				<div className="mt-6">
+					<button
+						onClick={handleGoogleLogin}
+						className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+					>
+						Login with Google
+					</button>
+				</div>
 			</div>
 		</div>
 	)
