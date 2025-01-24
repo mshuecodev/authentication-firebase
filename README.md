@@ -16,7 +16,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-ESSENTIAL FEATURES
+# ESSENTIAL FEATURES
 
 ## REGISTER (OK)
 
@@ -48,7 +48,7 @@ ESSENTIAL FEATURES
 
 -   Secure specific pages by allowing only authenticated users to access them.
 
-ADVANCED FEATURE
+# ADVANCED FEATURE
 
 ## MULTI-FACTOR AUTHENTICATION (MFA)
 
@@ -66,7 +66,7 @@ ADVANCED FEATURE
 
 -   Use Firebase custom claims to add user-specific metadata (e.g., roles or permissions).
 
-SECURITY FEATURES
+# SECURITY FEATURES
 
 ## SESSION EXPIRATION HANDLING
 
@@ -80,7 +80,7 @@ SECURITY FEATURES
 
 -   Limit the number of devices a user can log in to simultaneously.
 
-Convenience Features
+# Convenience Features
 
 ## Anonymous Authentication
 
@@ -108,7 +108,7 @@ Admin-Level Features
 
 -   Track login, logout, and other authentication events for audit purposes.
 
-Optional Features
+# Optional Features
 
 ## OAuth for Third-Party API Access
 
