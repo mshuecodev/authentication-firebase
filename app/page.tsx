@@ -1,4 +1,5 @@
-import { useAuth } from "./context/AuthContex"
+"use client"
+import { useAuth } from "@/app/context/AuthContex"
 
 export default function Home() {
 	const { user, loading, token } = useAuth()
