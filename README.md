@@ -56,20 +56,68 @@ ADVANCED FEATURE
 
 ## ROLE-BASED ACCESS CONTROL (RBAC)
 
+-   Assign roles (e.g., admin, editor, user) and restrict access to certain pages or features based on roles.
+
 ## USER PROFILE MANAGEMENT
 
+-   Allow users to update their profile information, such as name, profile picture, and contact details.
+
 ## CUSTOM CLAIMS FOR AUTHORIZATION
+
+-   Use Firebase custom claims to add user-specific metadata (e.g., roles or permissions).
 
 SECURITY FEATURES
 
 ## SESSION EXPIRATION HANDLING
 
+-   Automatically log out users when their session expires and prompt re-authentication.
+
 ## SECURE TOKEN MANAGEMENT
+
+-   Use Firebase ID tokens for secure API requests and renew them when expired.
 
 ## DEVICE-BASED SESSION CONTROL
 
-TYPE OF AUTHENTICATION
+-   Limit the number of devices a user can log in to simultaneously.
 
--   USERNAME/PASSWORD
--   GOOGLE AUTHENTICATION
--   GITHUB AUTHENTICATION
+Convenience Features
+
+## Anonymous Authentication
+
+-   Allow users to interact with the app anonymously, then link their anonymous session to an email/password or social account later.
+
+## Link Multiple Auth Providers
+
+-   Let users link multiple authentication providers (e.g., Google and Facebook) to a single account.
+
+## Custom Authentication UI
+
+-   Customize the look and feel of the login and registration forms to match your brand.
+
+## Magic Link Authentication
+
+-   Allow users to log in using a secure link sent to their email without needing a password.
+
+Admin-Level Features
+
+## Magic Link Authentication
+
+-   Create an admin panel to view and manage registered users, reset passwords, or update roles.
+
+## Audit Logging
+
+-   Track login, logout, and other authentication events for audit purposes.
+
+Optional Features
+
+## OAuth for Third-Party API Access
+
+-   Use Firebase Authentication to allow users to authenticate with third-party APIs (e.g., integrating Google Calendar or GitHub repositories).
+
+## Offline Authentication
+
+-   Enable basic app functionality offline and sync the authentication state when reconnected.
+
+## Terms of Service and Privacy Policy Consent
+
+-   Prompt users to agree to your terms and conditions and privacy policy during registration.
