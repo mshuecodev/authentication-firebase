@@ -56,6 +56,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 		}
 	}
 
+	// force logout after 30 minutes
+	useEffect(() => {
+		if (user) {
+			const timer = setTimeout(() => {
+				console.log("Forcing logout after 30 minutes")
+				handleLogout()
+			}, 30 * 60 * 1000) // Force logout after 30 minutes
+
+			return () => clearTimeout(timer)
+		}
+	}, [user])
+
 	useEffect(() => {
 		const unsubscribe = onIdTokenChanged(auth, async (user) => {
 			setUser(user)
