@@ -14,7 +14,7 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+DEMO CHECK [https://mshuecodev.github.io/authentication-firebase/] Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 # ESSENTIAL FEATURES
 
