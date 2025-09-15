@@ -1,5 +1,6 @@
 "use client"
 import { useAuth } from "@/app/context/AuthContex"
+import Link from "next/link"
 
 export default function Home() {
 	const { user, loading, token } = useAuth()
@@ -48,18 +49,12 @@ export default function Home() {
 					<>
 						<p className="mt-4 text-gray-600">This is the home page.</p>
 						<div className="mt-6">
-							<a
-								href="/login"
-								className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
-							>
-								Login
-							</a>
-							<a
-								href="/register"
-								className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
-							>
-								Register
-							</a>
+							<Link href="/login">
+								<span className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">Login</span>
+							</Link>
+							<Link href="/register">
+								<span className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Register</span>
+							</Link>
 						</div>
 					</>
 				)}
