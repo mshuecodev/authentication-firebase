@@ -5,18 +5,18 @@ export default function Home() {
 	const { user, loading, token } = useAuth()
 
 	const handleSignOut = async () => {
-		try {
-			const response = await fetch("/api/auth/logout", {
-				method: "POST"
-			})
-			if (response.ok) {
-				console.log("Logged out successfully")
-			} else {
-				console.error("Error logging out")
-			}
-		} catch (error) {
-			console.error("Error logging out:", error)
-		}
+		// try {
+		// 	const response = await fetch("/api/auth/logout", {
+		// 		method: "POST"
+		// 	})
+		// 	if (response.ok) {
+		// 		console.log("Logged out successfully")
+		// 	} else {
+		// 		console.error("Error logging out")
+		// 	}
+		// } catch (error) {
+		// 	console.error("Error logging out:", error)
+		// }
 	}
 
 	if (loading) {
